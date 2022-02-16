@@ -1,4 +1,4 @@
-export const ratingData = [
+export const RatingData = [
   {
     id: 1,
     rating: 10,
