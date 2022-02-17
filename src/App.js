@@ -3,6 +3,7 @@ import "./App.css";
 
 import Header from "./components/Header";
 import Rating from "./components/Rating";
+import RateForm from "./components/RateForm";
 import { RatingData } from "./data/RatingData";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
     <>
       <Header />
       <div className="container">
+        <RateForm />
         <div className="feedback-stats">
           <h4>{ratings.length} Reviews</h4>
           <h4>Average Rating: {isNaN(average) ? 0 : average}</h4>
