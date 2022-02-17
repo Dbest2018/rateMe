@@ -22,11 +22,20 @@ function App() {
     }
   };
 
+  const addRatings = (newRatings) => {
+    const newRatingsWithId = {
+      id: ratings.length + 1,
+      ...newRatings,
+    };
+    setRatings((prevRatings) => [...prevRatings, newRatingsWithId]);
+  };
+
+  console.log(ratings);
   return (
     <>
       <Header />
       <div className="container">
-        <RateForm />
+        <RateForm addRatings={addRatings} />
         <div className="feedback-stats">
           <h4>{ratings.length} Reviews</h4>
           <h4>Average Rating: {isNaN(average) ? 0 : average}</h4>
