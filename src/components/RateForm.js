@@ -30,6 +30,7 @@ const RateForm = ({ addRatings }) => {
       };
       addRatings(newRatings);
     }
+    setText("");
   };
   return (
     <div className="card">

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import "./App.css";
 
 import Header from "./components/Header";
@@ -36,21 +37,30 @@ function App() {
       <Header />
       <div className="container">
         <RateForm addRatings={addRatings} />
-        <div className="feedback-stats">
+        <div className="ratings-stats">
           <h4>{ratings.length} Reviews</h4>
           <h4>Average Rating: {isNaN(average) ? 0 : average}</h4>
         </div>
-        {ratings.length > 0 ? (
-          ratings.map((rating) => (
-            <Rating
-              rating={rating}
-              key={rating.id}
-              handleDelete={deleteRating}
-            />
-          ))
-        ) : (
-          <p>No ratings yet</p>
-        )}
+        <AnimatePresence>
+          {ratings.length > 0 ? (
+            ratings.map((rating) => (
+              <motion.div
+                key={rating.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <Rating
+                  rating={rating}
+                  key={rating.id}
+                  handleDelete={deleteRating}
+                />
+              </motion.div>
+            ))
+          ) : (
+            <p>No ratings yet</p>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );
