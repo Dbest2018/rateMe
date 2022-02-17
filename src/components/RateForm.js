@@ -17,7 +17,7 @@ const RateForm = () => {
             placeholder="Write a review"
             onChange={handleChange}
           />
-          <button>send</button>
+          <button className={`btn btn-primary`}>send</button>
         </div>
       </form>
     </div>
