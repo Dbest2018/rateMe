@@ -31,8 +31,9 @@ function App() {
 
   average = average.toFixed(1).replace(/[.,]0$/, "");
 
-  const deleteRating = (id) => {
+  const deleteRating = async (id) => {
     if (window.confirm("Are you sure you want to delete? ")) {
+      await fetch(`/ratings/${id}`, { method: "DELETE" });
       setRatings(ratings.filter((rating) => rating.id !== id));
     }
   };

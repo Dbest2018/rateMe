@@ -14,11 +14,6 @@
       "id": 3,
       "score": 8,
       "text": "This is the third rating coming from the backend"
-    },
-    {
-      "text": "something about you",
-      "score": 7,
-      "id": 4
     }
   ]
 }
