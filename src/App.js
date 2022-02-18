@@ -17,9 +17,7 @@ function App() {
   }, []);
 
   const fetchRatings = async () => {
-    const response = await fetch(
-      "http://localhost:5000/ratings?_sort=id&_order=desc"
-    );
+    const response = await fetch("/ratings?_sort=id&_order=desc");
     const data = await response.json();
 
     setRatings(data);
@@ -39,12 +37,18 @@ function App() {
     }
   };
 
-  const addRatings = (newRatings) => {
-    const newRatingsWithId = {
-      id: ratings.length + 1,
-      ...newRatings,
-    };
-    setRatings((prevRatings) => [...prevRatings, newRatingsWithId]);
+  const addRatings = async (newRatings) => {
+    const response = await fetch("/ratings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newRatings),
+    });
+
+    const data = await response.json();
+
+    setRatings((prevRatings) => [data, ...prevRatings]);
   };
 
   const editRating = (rating) => {
