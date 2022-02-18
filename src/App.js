@@ -10,6 +10,9 @@ import { RatingData } from "./data/RatingData";
 
 function App() {
   const [ratings, setRatings] = useState(RatingData);
+  const [edited, setEdited] = useState({ rating: {}, isEdited: false });
+  // TODO: delete
+  console.log(ratings);
 
   let average =
     ratings.reduce((acc, cur) => {
@@ -32,9 +35,28 @@ function App() {
     setRatings((prevRatings) => [...prevRatings, newRatingsWithId]);
   };
 
-  console.log(ratings);
+  const editRating = (rating) => {
+    setEdited({
+      rating,
+      isEdited: true,
+    });
+  };
+
+  const updateRating = (id, rating) => {
+    setRatings((prevRatings) => {
+      return prevRatings.map((prevRating) => {
+        if (prevRating.id === id) {
+          prevRating = { id, ...rating };
+        }
+        return prevRating;
+      });
+    });
+  };
+
   return (
-    <RatingContext.Provider value={{ ratings }}>
+    <RatingContext.Provider
+      value={{ ratings, edited, editRating, updateRating }}
+    >
       <Header />
       <div className="container">
         <RateForm addRatings={addRatings} />

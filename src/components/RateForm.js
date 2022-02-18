@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import RateScore from "./RateScore";
+import { RatingContext } from "../context/RatingContext";
 
 const RateForm = ({ addRatings }) => {
   const [text, setText] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState("");
   const [rating, setRating] = useState(10);
+
+  const { edited, updateRating } = useContext(RatingContext);
+
+  useEffect(() => {
+    if (edited.isEdited) {
+      setBtnDisabled(false);
+      setText(edited.rating.text);
+      setRating(edited.rating.score);
+    }
+  }, [edited]);
 
   const handleChange = (e) => {
     if (text === "") {
@@ -28,7 +39,11 @@ const RateForm = ({ addRatings }) => {
         text,
         score: rating,
       };
-      addRatings(newRatings);
+      if (edited.isEdited) {
+        updateRating(edited.rating.id, newRatings);
+      } else {
+        addRatings(newRatings);
+      }
     }
     setText("");
   };

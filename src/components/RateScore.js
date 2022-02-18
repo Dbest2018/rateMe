@@ -1,7 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { RatingContext } from "../context/RatingContext";
 
 const RateScore = ({ setRateScore }) => {
   const [selected, setSelected] = useState(10);
+
+  const { edited } = useContext(RatingContext);
+
+  useEffect(() => {
+    setSelected(edited.rating.score);
+  }, [edited]);
 
   const handleChange = (e) => {
     setSelected(+e.target.value);
