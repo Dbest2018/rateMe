@@ -5,6 +5,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Rating from "./components/Rating";
 import RateForm from "./components/RateForm";
+import { RatingContext } from "./context/RatingContext";
 import { RatingData } from "./data/RatingData";
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
 
   console.log(ratings);
   return (
-    <>
+    <RatingContext.Provider value={{ ratings }}>
       <Header />
       <div className="container">
         <RateForm addRatings={addRatings} />
@@ -50,11 +51,7 @@ function App() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               >
-                <Rating
-                  rating={rating}
-                  key={rating.id}
-                  handleDelete={deleteRating}
-                />
+                <Rating rating={rating} handleDelete={deleteRating} />
               </motion.div>
             ))
           ) : (
@@ -62,7 +59,7 @@ function App() {
           )}
         </AnimatePresence>
       </div>
-    </>
+    </RatingContext.Provider>
   );
 }
 
