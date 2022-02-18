@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./App.css";
 
@@ -6,13 +6,25 @@ import Header from "./components/Header";
 import Rating from "./components/Rating";
 import RateForm from "./components/RateForm";
 import { RatingContext } from "./context/RatingContext";
-import { RatingData } from "./data/RatingData";
 
 function App() {
-  const [ratings, setRatings] = useState(RatingData);
+  const [isLoading, setIsLoading] = useState(true);
+  const [ratings, setRatings] = useState([]);
   const [edited, setEdited] = useState({ rating: {}, isEdited: false });
-  // TODO: delete
-  console.log(ratings);
+
+  useEffect(() => {
+    fetchRatings();
+  }, []);
+
+  const fetchRatings = async () => {
+    const response = await fetch(
+      "http://localhost:5000/ratings?_sort=id&_order=desc"
+    );
+    const data = await response.json();
+
+    setRatings(data);
+    setIsLoading(false);
+  };
 
   let average =
     ratings.reduce((acc, cur) => {
@@ -55,7 +67,13 @@ function App() {
 
   return (
     <RatingContext.Provider
-      value={{ ratings, edited, editRating, updateRating }}
+      value={{
+        ratings,
+        edited,
+        isLoading,
+        editRating,
+        updateRating,
+      }}
     >
       <Header />
       <div className="container">
