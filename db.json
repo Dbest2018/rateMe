@@ -11,9 +11,9 @@
       "text": "This is the second rating coming from the backend"
     },
     {
-      "id": 3,
+      "text": "This is the new third rating from the backend",
       "score": 8,
-      "text": "This is the third rating coming from the backend"
+      "id": 3
     }
   ]
 }

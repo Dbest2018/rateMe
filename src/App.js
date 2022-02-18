@@ -59,11 +59,21 @@ function App() {
     });
   };
 
-  const updateRating = (id, rating) => {
+  const updateRating = async (id, rating) => {
+    const response = await fetch(`/ratings/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(rating),
+    });
+
+    const data = await response.json();
+
     setRatings((prevRatings) => {
       return prevRatings.map((prevRating) => {
         if (prevRating.id === id) {
-          prevRating = { id, ...rating };
+          prevRating = data;
         }
         return prevRating;
       });
